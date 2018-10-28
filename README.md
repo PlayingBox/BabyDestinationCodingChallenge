@@ -22,4 +22,4 @@ The MVC (model view controller) paradigm has been followed while building the co
 
 ## Production
 
-The service has been deployed to production and it can be used by any client (web, mobile). The service has been hosted on babydestination.herokuapp.com 
+The service has been deployed to production on heroku and it can be used by the relevant clients at babydestination.herokuapp.com 
