@@ -9,6 +9,7 @@ controller.welcomeUser = async (req, res)  => {
     .json({
     'data': {
       'message': 'Welcome to Baby Destination'
+      'info': 'App started!'
     }
   });
 }

@@ -13,5 +13,9 @@ userValidationSchemas.loginSchema = Joi.object().keys({
   password: Joi.string().required()
 });
 
+userValidationSchemas.editSchema = Joi.object().keys({
+  fullname: Joi.string().required()
+});
+
 
 module.exports = userValidationSchemas;

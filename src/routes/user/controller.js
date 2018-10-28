@@ -21,7 +21,9 @@ controller.registerUser = async (req, res) => {
   if(error) {
     return res
       .status(HttpStatus.BAD_REQUEST)
-      .json({ 'Error': error.details[0].message });
+      .json({
+        'Error': error.details[0].message
+      });
   }
 
   try {
@@ -32,7 +34,9 @@ controller.registerUser = async (req, res) => {
     if(result && result.email == email) {
       return res
         .status(HttpStatus.BAD_REQUEST)
-        .json({ 'Error': 'Email already registered' });
+        .json({
+          'Error': 'Email already registered'
+        });
     }
 
     const hashedPassword = await hashPassword(password);
@@ -44,7 +48,8 @@ controller.registerUser = async (req, res) => {
       .json({
         'data':
           { 'message': 'User created Successfully',
-            'userId': result
+            'userId': result.id,
+            'info': 'You can login now'
           }
       });
   }
@@ -67,7 +72,9 @@ controller.loginUser = async (req, res) => {
   if(error) {
     return res
       .status(HttpStatus.BAD_REQUEST)
-      .json({ 'Error': error.details[0].message });
+      .json({
+        'Error': error.details[0].message
+      });
   }
 
   try {
@@ -79,7 +86,12 @@ controller.loginUser = async (req, res) => {
       validEmail = true;
       if(await bcrypt.compare(password, result.password)) {
         validPassword = true;
-        const token = jwt.sign({ email }, process.env.SECRET_KEY);
+        const token = jwt.sign(
+          { userId: result.id },
+          process.env.SECRET_KEY,
+          {
+            expiresIn: '1h'
+          });
 
         return res
           .status(HttpStatus.OK)
@@ -99,7 +111,7 @@ controller.loginUser = async (req, res) => {
         .json({
           'data': {
             'message': 'Invalid email',
-            'info': 'Please try again'
+            'info': 'Wrong email try again!'
           }
         });
     }
@@ -114,6 +126,40 @@ controller.loginUser = async (req, res) => {
           }
         });
     }
+  }
+  catch (error) {
+    return res
+      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      .json(error);
+  }
+}
+
+controller.editUserProfile = (req, res) => {
+  const { fullname } = req.body;
+  const inputData = { fullname };
+  const { error, value } = Joi.validate(
+    inputData,
+    userValidationSchema.editSchema
+  );
+
+  if(error) {
+    return res
+      .status(HttpStatus.BAD_REQUEST)
+      .json({ 'Error': error.details[0].message });
+  }
+
+  const { userId } = req.userData;
+
+  try {
+    const result = await userDbm.editUserProfile(fullname, userId);
+    return res
+      .status(HttpStatus.ACCEPTED)
+      .json({
+        'data': {
+          'message': 'Fullname changed',
+          'info': 'Profile modified'
+        }
+      })
   }
   catch (error) {
     return res
