@@ -6,11 +6,11 @@ A set of Nodejs APIs that allows the user to sign-up for an account, login and e
 
 ## Application Information
 
-This Application has been made following all the best practices and refactoring has been taken to the best level possible
+This Application has been made following all the best practices and refactoring has been taken to the best level possible.
 
 ## Code Organization
 
-Care has been taken to ensure the division of code into modules and subdirectories so that individual components can scale as much as possible in case we need to extend the features of the present application
+Care has been taken to ensure the division of code into modules and subdirectories so that individual components can scale as much as possible in case we need to extend the features of the present application.
 
 ## API Documentation
 
@@ -18,7 +18,7 @@ All the API's relevant to the application have been documented and made availabl
 
 ## Architecture
 
-The MVC (model view controller) paradigm has been followed while building the components of this service
+The MVC (model view controller) paradigm has been followed while building the components of this service.
 
 ## Production
 
