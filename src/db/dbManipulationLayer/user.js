@@ -16,7 +16,7 @@ dmlFunctions.getUserByEmail = async (email) => {
       [email]
     );
 
-    return result.rows[0].email;
+    return result.rows[0];
   }
   catch (error) {
     throw { 'Error': error };

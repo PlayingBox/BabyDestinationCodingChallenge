@@ -38,7 +38,7 @@ controller.registerUser = async (req, res) => {
     result = await userDbm.getUserByEmail(email);
     console.log('result of user email fetch', result);
 
-    if(result == email) {
+    if(result && result.email == email) {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ 'Error': 'Email already registered' });
