@@ -162,6 +162,7 @@ controller.editUserProfile = async (req, res) => {
       })
   }
   catch (error) {
+    console.log('error', error);
     return res
       .status(HttpStatus.BAD_REQUEST)
       .json(error);
