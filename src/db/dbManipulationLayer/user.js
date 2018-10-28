@@ -69,7 +69,7 @@ dmlFunctions.editUserProfile = async (fullname, userId) => {
   try {
     const client = await pool.connect();
     const result = await client.query(
-      'UPDATE users SET fullname=($1) where id=($2)',
+      'UPDATE user SET fullname=($1) where id=($2)',
       [fullname, userId]
     );
 

@@ -29,7 +29,7 @@ controller.registerUser = async (req, res) => {
   try {
     let result;
 
-    result = await userDbm.getUserByEmail(email);
+    result = await userDbm.getUserByEmail();
 
     if(result && result.email == email) {
       return res
