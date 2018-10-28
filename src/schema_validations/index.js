@@ -1,5 +1,3 @@
-require("babel-polyfill");
-
 import userValidationSchema from './user';
 
 const inputValidationSchemas = {

@@ -1,5 +1,3 @@
-require("babel-polyfill");
-
 import { Pool } from 'pg';
 
 const pool = new Pool({
