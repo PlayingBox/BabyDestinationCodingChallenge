@@ -134,7 +134,7 @@ controller.loginUser = async (req, res) => {
   }
 }
 
-controller.editUserProfile = (req, res) => {
+controller.editUserProfile = async (req, res) => {
   const { fullname } = req.body;
   const inputData = { fullname };
   const { error, value } = Joi.validate(

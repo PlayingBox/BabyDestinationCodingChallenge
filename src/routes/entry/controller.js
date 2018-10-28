@@ -8,7 +8,7 @@ controller.welcomeUser = async (req, res)  => {
   return res.status(HttpStatus.OK)
     .json({
     'data': {
-      'message': 'Welcome to Baby Destination'
+      'message': 'Welcome to Baby Destination',
       'info': 'App started!'
     }
   });

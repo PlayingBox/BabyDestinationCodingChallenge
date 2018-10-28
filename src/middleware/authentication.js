@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
       .status(HttpStatus.UNAUTHORIZED)
       .json({
         'data': {
-          'message': 'Authentication failed!'
+          'message': 'Authentication failed!',
           'info': 'Unauthorized user'
         }
       })
