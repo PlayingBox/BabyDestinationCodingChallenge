@@ -75,18 +75,7 @@ controller.loginUser = async (req, res) => {
 
     result = await userDbm.getUserByEmail(email);
 
-    if(!result) {
-      return res
-        .status(HttpStatus.NOT_FOUND)
-        .json({
-          'data': {
-            'message': 'Email not found!',
-            'info': 'Register an Account'
-          }
-        });
-    }
-
-    if(result.email == email) {
+    if(result && result.email == email) {
       validEmail = true;
       if(await bcrypt.compare(password, result.password)) {
         validPassword = true;
