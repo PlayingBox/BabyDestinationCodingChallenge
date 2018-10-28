@@ -2,7 +2,9 @@ import jwt from 'jsonwebtoken';
 import HttpStatus from 'http-status-codes';
 
 const authenticate = async (req, res, next) => {
-  const token = (req.headers["authorization"]).split(" ")[1];
+  if(req.headers) {
+    const token = (req.headers["authorization"]).split(" ")[1];
+  }
   try {
     const decoded = await jwt.verify(token, process.env.SECRET_KEY);
     console.log('decoded', decoded);
