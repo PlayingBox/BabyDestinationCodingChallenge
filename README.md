@@ -18,7 +18,7 @@ All the API's relevant to the application have been documented and made availabl
 
 ## Architecture
 
-The MVC (model view controller) Architecture has been followed while building the components of this service
+The MVC (model view controller) paradigm has been followed while building the components of this service
 
 ## Production
 
