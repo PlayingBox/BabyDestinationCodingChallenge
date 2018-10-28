@@ -12,7 +12,7 @@ dmlFunctions.getUserByEmail = async (email) => {
   try {
     const client = await pool.connect();
     const result = await client.query(
-      'SELECT email FROM users WHERE email = $1',
+      'SELECT email, password FROM users WHERE email = $1',
       [email]
     );
 

@@ -1,10 +1,10 @@
 require("babel-polyfill");
 
-import bcryptjs from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 
 const hashPassword = async (password) => {
   const saltRounds = 10;
-  return await bcryptjs.hash(password, saltRounds);
+  return await bcrypt.hash(password, saltRounds);
 }
 
 module.exports = hashPassword;

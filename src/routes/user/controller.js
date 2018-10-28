@@ -1,6 +1,7 @@
 require("babel-polyfill");
 
 import Joi from 'joi';
+import bcrypt from 'bcryptjs';
 import HttpStatus from 'http-status-codes';
 import { userValidationSchema } from '../../schema_validations';
 import { userDbm } from '../../db/dbManipulationLayer';
@@ -70,32 +71,49 @@ controller.loginUser = async (req, res) => {
   }
 
   try {
-    let result;
+    let result, validEmail = false, validPassword = false;
 
     result = await userDbm.getUserByEmail(email);
 
     if(result && result.email == email) {
-      const token = jwt.sign({ email }, process.env.SECRET_KEY);
+      validEmail = true;
+      if(await bcrypt.compare(password, result.password)) {
+        validPassword = true;
+        const token = jwt.sign({ email }, process.env.SECRET_KEY);
 
+        return res
+          .status(HttpStatus.OK)
+          .json({
+            'data': {
+              'message': 'User logged in Successfully',
+              'token': token,
+              'info': 'Use this token for Authentication'
+            }
+          });
+      }
+    }
+
+    if(!validEmail) {
       return res
-        .status(HttpStatus.OK)
+        .status(HttpStatus.BAD_REQUEST)
         .json({
           'data': {
-            'message': 'User logged in Successfully',
-            'token': token,
-            'advice': 'Use this token for Authentication'
+            'message': 'Invalid email or user not registered',
+            'info': 'Please try again or register an account'
           }
         });
     }
 
-    return res
-      .status(HttpStatus.NOT_FOUND)
-      .json({
-        'data': {
-          'message': 'User not registered',
-          'advice': 'Please register before logging in'
-        }
-      });
+    if(!validPassword) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({
+          'data': {
+            'message': 'Invalid password',
+            'info': 'Wrong password try again!'
+          }
+        });
+    }
   }
   catch (error) {
     return res
