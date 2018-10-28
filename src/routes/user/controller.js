@@ -1,19 +1,23 @@
-import pool from '../../db';
 import Joi from 'joi';
 import HttpStatus from 'http-status-codes';
-
-const schema = Joi.object().keys({
-  fullname: Joi.string().required(),
-  email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-  password: Joi.string().required()
-});
+import bcryptjs from 'bcryptjs';
+import { userValidationSchema } from '../../schema_validations';
+import { userDbm } from '../../db/dbManipulationLayer';
 
 const controller = {};
+
+const hashPassword = async (password) => {
+  const saltRounds = 10;
+  return await bcryptjs.hash(password, saltRounds);
+}
 
 controller.registerUser = async (req, res) => {
   const { fullname, email, password } = req.body;
   const inputData = { fullname, email, password };
-  const { error, value } = Joi.validate(inputData, schema);
+  const { error, value } = Joi.validate(
+    inputData,
+    userValidationSchema.registerSchema
+  );
 
   if(error) {
     return res
@@ -23,27 +27,22 @@ controller.registerUser = async (req, res) => {
 
   try {
     let result = '';
-    const client = await pool.connect();
-    result = await client.query(
-      'SELECT email FROM users WHERE email = $1',
-      [email]
-    );
 
-    if(result.rows[0] == email) {
+    result = await userDbm.getUserByEmail(email);
+
+    if(result == email) {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ 'Error': 'Email already registered' });
     }
 
-    result = await client.query(
-      ('INSERT INTO users(fullname, email, password)' +
-      'VALUES($1, $2, $3) RETURNING id'),
-      [fullname, email, password]
-    );
+    const hashedPassword = await hashPassword(password);
+
+    result = await userDbm.createUser(fullname, email, hashPassword);
 
     return res
       .status(HttpStatus.CREATED)
-      .json({ 'data': { 'userId': result.rows[0].id } });
+      .json({ 'data': { 'userId': result } });
   }
 
   catch (error) {
@@ -51,6 +50,10 @@ controller.registerUser = async (req, res) => {
       .status(HttpStatus.INTERNAL_SERVER_ERROR)
       .json({ 'Error': error });
   }
+}
+
+controller.loginUser = (req, res) => {
+
 }
 
 module.exports = controller;
