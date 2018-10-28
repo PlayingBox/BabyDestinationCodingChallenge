@@ -29,7 +29,7 @@ controller.registerUser = async (req, res) => {
   try {
     let result;
 
-    result = await userDbm.getUserByEmail();
+    result = await userDbm.getUserByEmail(email);
 
     if(result && result.email == email) {
       return res
@@ -56,7 +56,7 @@ controller.registerUser = async (req, res) => {
 
   catch (error) {
     return res
-      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      .status(HttpStatus.BAD_REQUEST)
       .json(error);
   }
 }
@@ -129,7 +129,7 @@ controller.loginUser = async (req, res) => {
   }
   catch (error) {
     return res
-      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      .status(HttpStatus.BAD_REQUEST)
       .json(error);
   }
 }
@@ -163,7 +163,7 @@ controller.editUserProfile = async (req, res) => {
   }
   catch (error) {
     return res
-      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      .status(HttpStatus.BAD_REQUEST)
       .json(error);
   }
 }
