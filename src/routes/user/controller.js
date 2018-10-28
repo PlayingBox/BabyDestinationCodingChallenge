@@ -16,13 +16,10 @@ const hashPassword = async (password) => {
 controller.registerUser = async (req, res) => {
   const { fullname, email, password } = req.body;
   const inputData = { fullname, email, password };
-  console.log('inputData', inputData);
   const { error, value } = Joi.validate(
     inputData,
     userValidationSchema.registerSchema
   );
-
-  console.log('validation error', error);
 
   if(error) {
     return res
@@ -31,12 +28,9 @@ controller.registerUser = async (req, res) => {
   }
 
   try {
-    let result = '';
-
-    console.log('email before db call', email);
+    let result;
 
     result = await userDbm.getUserByEmail(email);
-    console.log('result of user email fetch', result);
 
     if(result && result.email == email) {
       return res
@@ -45,21 +39,18 @@ controller.registerUser = async (req, res) => {
     }
 
     const hashedPassword = await hashPassword(password);
-    console.log('hashed password', hashedPassword);
 
     result = await userDbm.createUser(fullname, email, hashedPassword);
-    console.log('user created id', result);
 
     return res
       .status(HttpStatus.CREATED)
-      .json({ 'data': { 'userId': result } });
+      .json({ 'data': { 'message': 'User Created Successfully', 'userId': result } });
   }
 
   catch (error) {
-    console.log('catch', error);
     return res
       .status(HttpStatus.INTERNAL_SERVER_ERROR)
-      .json({ 'Error': error });
+      .json(error);
   }
 }
 
