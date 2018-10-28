@@ -11,11 +11,7 @@ Heroku Postgres as the backend database service.
 Express as the web application framework.
 
 ## Key Dependencies for Improving User Experience
-Babel for ES6 syntax conversion.
-Bcyrptjs for password hashing.
-Http-status-codes for sending relevant status codes as server response.
-Joi for validation of user input
-Jsonwebtoken for authentication
+Babel for ES6 syntax conversion, Bcyrptjs for password hashing, Http-status-codes for sending relevant status codes as server response, Joi for validation of user input, Jsonwebtoken for authentication,
 
 ## Application Information
 
