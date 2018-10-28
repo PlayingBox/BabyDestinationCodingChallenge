@@ -11,7 +11,7 @@ const authenticate = async (req, res, next) => {
     next();
   }
   catch (error) {
-    console.log('token', token);
+    console.log('error', error);
     return res
       .status(HttpStatus.UNAUTHORIZED)
       .json({
