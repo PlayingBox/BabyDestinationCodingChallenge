@@ -14,7 +14,7 @@ Care has been taken to ensure the division of code into modules and subdirectori
 
 ## API Documentation
 
-All the API's relevant to the application have been documented and made available publically on https://documenter.getpostman.com/view/764635/RzZ1rhxs. Please have a look for detailed information and to gain more clear insights.
+All the API's relevant to the application have been documented and made available publically on https://documenter.getpostman.com/view/764635/RzZ1rhxs. Please have a look for detailed information and to gain clearer insights.
 
 ## Architecture
 
