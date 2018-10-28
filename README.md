@@ -4,6 +4,19 @@
 
 A set of Nodejs APIs that allows the user to sign-up for an account, login and edit a user profile.
 
+## Technologies Used
+
+Node.js as the backend language.
+Heroku Postgres as the backend database service.
+Express as the web application framework.
+
+## Key Dependencies for Improving User Experience
+babel for ES6 syntax conversion.
+bcyrptjs for password hashing.
+http-status-codes for sending relevant status codes as server response.
+joi for validation of user input
+jsonwebtoken for authentication
+
 ## Application Information
 
 This Application has been made following all the best practices and refactoring has been taken to the best level possible.
