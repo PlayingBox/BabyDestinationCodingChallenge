@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "9e0012f3-d4b9-4c15-a67c-f974a3ce982b",
+		"name": "Baby Destination Coding Challenge ",
+		"description": "A set of Nodejs APIs that allows the user to sign-up for an account, login and edit a user profile.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "babydestination.herokuapp.com/user/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fullname\": \"Ishan Bhagwati\",\n\t\"email\": \"ishan12@gmail.com\",\n\t\"password\": \"pass#123\"\n\t\n}"
+				},
+				"url": {
+					"raw": "babydestination.herokuapp.com/user/register",
+					"host": [
+						"babydestination",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"user",
+						"register"
+					]
+				},
+				"description": "API to signup/register to the application"
+			},
+			"response": []
+		},
+		{
+			"name": "babydestination.herokuapp.com/user/log",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"ishan12@gmail.com\",\n\t\"password\": \"pass#123\"\n\t\n}"
+				},
+				"url": {
+					"raw": "babydestination.herokuapp.com/user/log",
+					"host": [
+						"babydestination",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"user",
+						"log"
+					]
+				},
+				"description": "API to login to the application"
+			},
+			"response": []
+		},
+		{
+			"name": "babydestination.herokuapp.com/user/profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTU0MDc1OTUxNiwiZXhwIjoxNTQwNzYzMTE2fQ.ln51MRKhn6fKSaTnDci-uTAgjDpLdV_GxVtTOI4P85E"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fullname\": \"Naved Ahmad\"\n}"
+				},
+				"url": {
+					"raw": "babydestination.herokuapp.com/user/profile",
+					"host": [
+						"babydestination",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"user",
+						"profile"
+					]
+				},
+				"description": "API to edit user profile, specifically the fullname"
+			},
+			"response": []
+		}
+	]
+}
