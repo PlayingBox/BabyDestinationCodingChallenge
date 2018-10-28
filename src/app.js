@@ -4,12 +4,9 @@ import routes from './routes';
 
 const app = express();
 
-require('./middleware')({
-  app,
-  bodyParser,
-  routes
-});
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', routes);
 
 const PORT = process.env.PORT || 3000;
 
