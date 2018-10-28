@@ -2,16 +2,12 @@ require("babel-polyfill");
 
 import Joi from 'joi';
 import HttpStatus from 'http-status-codes';
-import bcryptjs from 'bcryptjs';
 import { userValidationSchema } from '../../schema_validations';
 import { userDbm } from '../../db/dbManipulationLayer';
+import hashPassword from './hashPassword';
+import jwt from 'jsonwebtoken';
 
 const controller = {};
-
-const hashPassword = async (password) => {
-  const saltRounds = 10;
-  return await bcryptjs.hash(password, saltRounds);
-}
 
 controller.registerUser = async (req, res) => {
   const { fullname, email, password } = req.body;
@@ -44,7 +40,12 @@ controller.registerUser = async (req, res) => {
 
     return res
       .status(HttpStatus.CREATED)
-      .json({ 'data': { 'message': 'User Created Successfully', 'userId': result } });
+      .json({
+        'data':
+          { 'message': 'User created Successfully',
+            'userId': result
+          }
+      });
   }
 
   catch (error) {
@@ -54,8 +55,53 @@ controller.registerUser = async (req, res) => {
   }
 }
 
-controller.loginUser = (req, res) => {
+controller.loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  const inputData = { email, password };
+  const { error, value } = Joi.validate(
+    inputData,
+    userValidationSchema.loginSchema
+  );
 
+  if(error) {
+    return res
+      .status(HttpStatus.BAD_REQUEST)
+      .json({ 'Error': error.details[0].message });
+  }
+
+  try {
+    let result;
+
+    result = await userDbm.getUserByEmail(email);
+
+    if(result && result.email == email) {
+      const token = jwt.sign({ email }, process.env.SECRET_KEY);
+
+      return res
+        .status(HttpStatus.OK)
+        .json({
+          'data': {
+            'message': 'User logged in Successfully',
+            'token': token,
+            'advice': 'Use this token for Authentication'
+          }
+        });
+    }
+
+    return res
+      .status(HttpStatus.NOT_FOUND)
+      .json({
+        'data': {
+          'message': 'User not registered',
+          'advice': 'Please register before logging in'
+        }
+      });
+  }
+  catch (error) {
+    return res
+      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      .json(error);
+  }
 }
 
 module.exports = controller;
