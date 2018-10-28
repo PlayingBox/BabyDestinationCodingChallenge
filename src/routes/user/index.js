@@ -6,6 +6,6 @@ const router = Router();
 
 router.post('/register', controller.registerUser);
 router.post('/log', controller.loginUser);
-router.put('/edit', Autheticate, controller.editUserProfile);
+router.put('/profile', Autheticate, controller.editUserProfile);
 
 module.exports = router;

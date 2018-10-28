@@ -5,6 +5,7 @@ const initialize = (data) => {
     routes
   } = data;
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
   app.use('/', routes);
 }
 
