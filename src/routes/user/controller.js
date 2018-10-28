@@ -75,7 +75,18 @@ controller.loginUser = async (req, res) => {
 
     result = await userDbm.getUserByEmail(email);
 
-    if(result && result.email == email) {
+    if(!result) {
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .json({
+          'data': {
+            'message': 'Email not found!',
+            'info': 'Register an Account'
+          }
+        });
+    }
+
+    if(result.email == email) {
       validEmail = true;
       if(await bcrypt.compare(password, result.password)) {
         validPassword = true;
@@ -98,8 +109,8 @@ controller.loginUser = async (req, res) => {
         .status(HttpStatus.BAD_REQUEST)
         .json({
           'data': {
-            'message': 'Invalid email or user not registered',
-            'info': 'Please try again or register an account'
+            'message': 'Invalid email',
+            'info': 'Please try again'
           }
         });
     }
