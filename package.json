@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js --exec babel-node --presets env",
-    "start": "babel src -d dist --source-maps && node dist/app.js"
+    "build": "babel src -d dist --source-maps inline --copy-files",
+    "start": "node dist/app.js"
   },
   "repository": {
     "type": "git",
