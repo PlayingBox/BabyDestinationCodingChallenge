@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 import Joi from 'joi';
 
 const userValidationSchemas = {};

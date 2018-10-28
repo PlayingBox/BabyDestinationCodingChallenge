@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 import Joi from 'joi';
 import HttpStatus from 'http-status-codes';
 import bcryptjs from 'bcryptjs';

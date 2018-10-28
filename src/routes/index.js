@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 import { Router } from 'express';
 import user from './user';
 import entry from './entry';

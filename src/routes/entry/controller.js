@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 import HttpStatus from 'http-status-codes';
 
 const controller = {};

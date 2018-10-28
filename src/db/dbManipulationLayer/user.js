@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 import pool from '../../db';
 
 const dmlFunctions = {};
