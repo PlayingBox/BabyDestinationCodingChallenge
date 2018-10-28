@@ -29,7 +29,7 @@ dmlFunctions.createUser = async (fullname, email, password) => {
   } else if(!email) {
     throw { 'Error': 'email not found'};
   } else if(!password) {
-    throw { 'Error': 'email not found'};
+    throw { 'Error': 'password not found'};
   }
 
   try {

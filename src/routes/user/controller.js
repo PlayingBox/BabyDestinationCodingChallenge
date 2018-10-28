@@ -33,6 +33,8 @@ controller.registerUser = async (req, res) => {
   try {
     let result = '';
 
+    console.log('email before db call', email);
+
     result = await userDbm.getUserByEmail(email);
     console.log('result of user email fetch', result);
 
